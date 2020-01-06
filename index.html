@@ -1,1 +1,35 @@
-Hello World!
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CashBot</title>
+</head>
+<body>
+
+<div id="content"></div>
+
+<script src='https://code.jquery.com/jquery-2.2.0.js'></script>
+<script>
+$(document).ready(function() {
+    var oauthParams = {},
+    queryString = location.hash.substring(1),
+    regex = /([^&=]+)=([^&]*)/g;
+    while (m = regex.exec(queryString)) {
+        oauthParams[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+    }
+    console.log(oauthParams);
+    if (oauthParams['token']) {
+        $('#content').append("<p>Get token: " + oauthParams['token'].replace(/[&\\#,+()$~%'"`*?<>{}]/g, '') + "</p>")
+        var ws = new WebSocket('wss://www.binary.com/websockets/v3');
+        ws.onopen = function(evt) {
+            ws.send(JSON.stringify({authorize: oauthParams['token']}));
+        };
+        ws.onmessage = function(msg) {
+           // var data = JSON.parse(msg.data);
+           $('#content').append("<p>" + msg.data + "</p>");
+        };
+    }
+})
+</script>
+
+</body>
+</html>
