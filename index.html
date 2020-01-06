@@ -27,7 +27,7 @@ $(document).ready(function() {
         });
         console.log(oauthParams);
         if (oauthParams['token1']) {
-            $('#content').append("<p>Get token: " + oauthParams['token1'].replace(/[&\\#,+()$~%'"`*?<>{}]/g, '') + oauthParams['acct1'] "</p>")
+            $('#content').append("<p>Conta: " + oauthParams['acct1'] +  "  Token: " + oauthParams['token1'].replace(/[&\\#,+()$~%'"`*?<>{}]/g, '') + "</p>")
             var ws = new WebSocket('wss://www.binary.com/websockets/v3');
             ws.onopen = function(evt) {
                 ws.send(JSON.stringify({authorize: oauthParams['token1']}));
