@@ -5,30 +5,31 @@
 </head>
 <body>
 
+<!--
 <div id="content"></div>
 
 <input type='button' id='implict_grant' value='Token' />
-    
+ 
 <script src='https://code.jquery.com/jquery-2.2.0.js'></script>
 <script>
 $(document).ready(function() {
     $('#implict_grant').click(function() {
         var oauthParams = {};
-        /*
-        var oauthParams = {},
-        queryString = location.hash.substring(1),
-        regex = /([^&=]+)=([^&]*)/g;
-        while (m = regex.exec(queryString)) {
-            oauthParams[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-        }
-        */
+        
+        //var oauthParams = {},
+        //queryString = location.hash.substring(1),
+        //regex = /([^&=]+)=([^&]*)/g;
+        //while (m = regex.exec(queryString)) {
+        //    oauthParams[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+        //}
+        
         var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
             oauthParams[key] = value;
         });
         console.log(oauthParams);
         if (oauthParams['token1']) {
             $('#content').append("<p>Conta: " + oauthParams['acct1'] +  "</p><p>Token: " + oauthParams['token1'].replace(/[&\\#,+()$~%'"`*?<>{}]/g, '') + "</p>")
-            var ws = new WebSocket('wss://ws.binaryws.com/websockets/v3?l=EN&app_id=18867');
+            var ws = new WebSocket('wss://ws.binaryws.com/websockets/v3?l=EN&app_id=10');
             ws.onopen = function(evt) {
                 ws.send(JSON.stringify({authorize: oauthParams['token1']}));
             };
@@ -40,6 +41,7 @@ $(document).ready(function() {
     });
 })
 </script>
+-->
 
 </body>
 </html>
